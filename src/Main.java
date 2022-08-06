@@ -4,10 +4,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
-        System.out.println(calc(input.replaceAll("\\s+", "")));
+        System.out.println(calc(input));
     }
 
     public static String calc(String input) throws Exception {
+        input = input.replaceAll("\\s+", "");
         String[] signs = {"\\+", "\\-", "\\*", "\\/"};
         for(var operation : signs){
             if(input.contains(operation.substring(1))){
