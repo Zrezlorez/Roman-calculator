@@ -10,10 +10,10 @@ public class Main {
     public static String calc(String input) throws Exception {
         input = input.replaceAll("\\s+", "");
         String[] signs = {"\\+", "\\-", "\\*", "\\/"};
-        for(var operation : signs){
-            if(input.contains(operation.substring(1))){
+        for (var operation : signs){
+            if (input.contains(operation.substring(1))){
                 String[] numbers = input.split(operation);
-                if(numbers.length > 2)
+                if (numbers.length > 2)
                     throw new Exception();
                 return checkNumbers(numbers[0], numbers[1], operation.substring(1));
             }
@@ -28,7 +28,7 @@ public class Main {
                 isRoman ? Convert.toArabic(secondNum) : tryParseInt(secondNum),
                 sign);
 
-        if(isRoman && result<1)
+        if (isRoman && result<1)
             throw new Exception();
 
         return isRoman ? Convert.toRoman(result) : String.valueOf(result);
@@ -45,7 +45,7 @@ public class Main {
     static int tryParseInt(String value) throws Exception {
         try {
             int result = Integer.parseInt(value);
-            if(result > 10)
+            if (result > 10)
                 throw new Exception();
             return result;
         } catch (Exception e) {
