@@ -1,8 +1,6 @@
-import java.util.Map;
-
 public class Convert {
-    private static final int[] intervals={0, 1, 4, 5, 9, 10, 40, 50, 90, 100};
-    private static final String[] romanNumbers ={"0", "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C"};
+    private static final int[] intervals = {0, 1, 4, 5, 9, 10, 40, 50, 90, 100};
+    private static final String[] romanNumbers = {"0", "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C"};
 
     private static int findFloor(final int number, final int firstIndex, final int lastIndex) {
         if(firstIndex == lastIndex)

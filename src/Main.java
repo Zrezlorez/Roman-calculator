@@ -1,27 +1,27 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
         System.out.println(calc(input));
     }
 
-    public static String calc(String input) throws Exception {
+    public static String calc(String input) {
         input = input.replaceAll("\\s+", "");
         String[] signs = {"\\+", "\\-", "\\*", "\\/"};
         for (var operation : signs){
             if (input.contains(operation.substring(1))){
                 String[] numbers = input.split(operation);
                 if (numbers.length > 2)
-                    throw new Exception();
+                    throw new RuntimeException();
                 return checkNumbers(numbers[0], numbers[1], operation.substring(1));
             }
         }
-        throw new Exception();
+        throw new RuntimeException();
     }
 
-    public static String checkNumbers(String firstNum, String secondNum, String sign) throws Exception {
+    public static String checkNumbers(String firstNum, String secondNum, String sign) {
         boolean isRoman = firstNum.matches("[IXV]+") && secondNum.matches("[IXV]+");
         int result = calculate(
                 isRoman ? Convert.toArabic(firstNum) : tryParseInt(firstNum),
@@ -29,7 +29,7 @@ public class Main {
                 sign);
 
         if (isRoman && result<1)
-            throw new Exception();
+            throw new RuntimeException();
 
         return isRoman ? Convert.toRoman(result) : String.valueOf(result);
     }
@@ -42,14 +42,14 @@ public class Main {
             default -> 0;
         };
     }
-    static int tryParseInt(String value) throws Exception {
+    public static int tryParseInt(String value) {
         try {
             int result = Integer.parseInt(value);
             if (result > 10)
-                throw new Exception();
+                throw new RuntimeException();
             return result;
-        } catch (Exception e) {
-            throw new Exception();
+        } catch (NumberFormatException e) {
+            throw new RuntimeException();
         }
     }
 }
