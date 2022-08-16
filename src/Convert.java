@@ -1,39 +1,33 @@
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Convert {
-    private static final int[] intervals = {0, 1, 4, 5, 9, 10, 40, 50, 90, 100};
-    private static final String[] romanNumbers = {"0", "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C"};
 
-    private static int findFloor(final int number, final int firstIndex, final int lastIndex) {
-        if(firstIndex == lastIndex)
-            return firstIndex;
-        if(intervals[firstIndex] == number)
-            return firstIndex;
-        if(intervals[lastIndex] == number)
-            return lastIndex;
-        final int median = (lastIndex + firstIndex) / 2;
-        if(median == firstIndex)
-            return firstIndex;
-        if(number == intervals[median])
-            return median;
-        if(number > intervals[median])
-            return findFloor(number, median, lastIndex);
-        else
-            return findFloor(number, firstIndex, median);
-
-    }
-
+    private static final TreeMap<Integer, String> ROMAN = new TreeMap<>() {{
+        put(0, "0");
+        put(1, "I");
+        put(4, "IV");
+        put(5, "V");
+        put(9, "IX");
+        put(10, "X");
+        put(40, "XL");
+        put(50, "L");
+        put(90, "XC");
+        put(100, "C");
+    }};
     public static String toRoman(final int number) {
-        int floorIndex = findFloor(number, 0, intervals.length-1);
-        if (number == intervals[floorIndex])
-            return romanNumbers[floorIndex];
-        return romanNumbers[floorIndex]+toRoman(number-intervals[floorIndex]);
+        Map.Entry<Integer, String> romanEntry = ROMAN.floorEntry(number);
+        if (number == romanEntry.getKey())
+            return romanEntry.getValue();
+        return romanEntry.getValue()+toRoman(number-romanEntry.getKey());
     }
 
     public static int toArabic(String roman) {
         int result = 0;
-        for (int i = intervals.length-1; i >= 0; i-- ) {
-            while (roman.indexOf(romanNumbers[i]) == 0) {
-                result += intervals[i];
-                roman = roman.substring(romanNumbers[i].length());
+        for (var entry : ROMAN.descendingMap().entrySet()) {
+            while(roman.indexOf(entry.getValue()) == 0) {
+                result += entry.getKey();
+                roman = roman.substring(entry.getValue().length());
             }
         }
         return result;

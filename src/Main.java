@@ -3,8 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        System.out.println(calc(input));
+        System.out.println(calc(scan.nextLine()));
     }
 
     public static String calc(String input) {
@@ -27,10 +26,8 @@ public class Main {
                 isRoman ? Convert.toArabic(firstNum) : tryParseInt(firstNum),
                 isRoman ? Convert.toArabic(secondNum) : tryParseInt(secondNum),
                 sign);
-
         if (isRoman && result<1)
             throw new RuntimeException();
-
         return isRoman ? Convert.toRoman(result) : String.valueOf(result);
     }
     public static int calculate(int x, int y, String operation){
