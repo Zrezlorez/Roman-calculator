@@ -22,10 +22,11 @@ public class Main {
 
     private static String checkAndCalcNumbers(String firstNum, String secondNum, String sign) {
         boolean isRoman = firstNum.matches("[IXV]+") && secondNum.matches("[IXV]+");
-        int result = calculateByOperation(
-                isRoman ? Convert.toArabic(firstNum) : tryParseInt(firstNum),
-                isRoman ? Convert.toArabic(secondNum) : tryParseInt(secondNum),
-                sign);
+
+        int first = isRoman ? Convert.toArabic(firstNum) : tryParseInt(firstNum);
+        int second = isRoman ? Convert.toArabic(secondNum) : tryParseInt(secondNum);
+
+        int result = calculateByOperation(checkLimit(first), checkLimit(second), sign);
         if (isRoman && result < 1)
             throw new RuntimeException();
         return isRoman ? Convert.toRoman(result) : String.valueOf(result);
@@ -43,12 +44,16 @@ public class Main {
 
     private static int tryParseInt(String value) {
         try {
-            int result = Integer.parseInt(value);
-            if (result > 10)
-                throw new RuntimeException();
-            return result;
+            return Integer.parseInt(value);
         } catch (NumberFormatException e) {
             throw new RuntimeException();
         }
+    }
+
+    private static int checkLimit(int value) {
+        if (value > 10 || value < 1) {
+            throw new RuntimeException();
+        }
+        return value;
     }
 }
