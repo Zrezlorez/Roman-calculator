@@ -25,7 +25,7 @@ public class Convert {
     public static int toArabic(String roman) {
         int result = 0;
         for (var entry : ROMAN.descendingMap().entrySet()) {
-            while(roman.indexOf(entry.getValue()) == 0) {
+            while (roman.indexOf(entry.getValue()) == 0) {
                 result += entry.getKey();
                 roman = roman.substring(entry.getValue().length());
             }
